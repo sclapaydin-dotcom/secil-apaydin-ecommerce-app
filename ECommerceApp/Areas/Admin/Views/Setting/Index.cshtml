@@ -1,0 +1,61 @@
+@model ECommerceApp.Models.SiteSetting
+@{
+    ViewBag.Title = "Site Ayarları";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 fw-bold">Site Ayarları</h6>
+            </div>
+            <div class="card-body">
+                <form asp-action="Index" method="post">
+                    @Html.AntiForgeryToken()
+                    <input asp-for="Id" type="hidden">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="SiteName" class="form-label fw-semibold"></label>
+                            <input asp-for="SiteName" class="form-control">
+                            <span asp-validation-for="SiteName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold"></label>
+                            <input asp-for="Email" type="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="SiteDescription" class="form-label fw-semibold"></label>
+                        <input asp-for="SiteDescription" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="PhoneNumber" class="form-label fw-semibold"></label>
+                            <input asp-for="PhoneNumber" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Address" class="form-label fw-semibold"></label>
+                            <input asp-for="Address" class="form-control">
+                        </div>
+                    </div>
+                    <h6 class="fw-bold mt-2 mb-3">Sosyal Medya</h6>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="FacebookUrl" class="form-label fw-semibold"></label>
+                            <input asp-for="FacebookUrl" class="form-control" placeholder="https://...">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="InstagramUrl" class="form-label fw-semibold"></label>
+                            <input asp-for="InstagramUrl" class="form-control" placeholder="https://...">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="TwitterUrl" class="form-label fw-semibold"></label>
+                            <input asp-for="TwitterUrl" class="form-control" placeholder="https://...">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gold">Ayarları Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

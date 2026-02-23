@@ -1,0 +1,65 @@
+@{
+    ViewBag.Title = "Yeni Ürün";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 fw-bold">Yeni Ürün Ekle</h6>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label fw-semibold">Ürün Adı <span class="text-danger">*</span></label>
+                            <input name="Name" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-semibold">Fiyat <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">₺</span>
+                                <input name="Price" type="number" step="0.01" min="0" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Açıklama</label>
+                        <textarea name="Description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Kategori <span class="text-danger">*</span></label>
+                            <select name="CategoryId" class="form-select" asp-items="ViewBag.Categories" required>
+                                <option value="">-- Seçiniz --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Ürün Resmi</label>
+                            <input type="file" name="imageFile" class="form-control" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input name="IsActive" type="checkbox" class="form-check-input" value="true" checked>
+                                <label class="form-check-label">Aktif</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input name="IsFeatured" type="checkbox" class="form-check-input" value="true">
+                                <label class="form-check-label">Öne Çıkan</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-gold">Kaydet</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

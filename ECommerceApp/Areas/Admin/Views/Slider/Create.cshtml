@@ -1,0 +1,54 @@
+@{
+    ViewBag.Title = "Yeni Slider";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 fw-bold">Yeni Slider Ekle</h6>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Başlık <span class="text-danger">*</span></label>
+                        <input name="Title" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Alt Başlık</label>
+                        <input name="SubTitle" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Buton Metni</label>
+                            <input name="ButtonText" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Buton Linki</label>
+                            <input name="ButtonUrl" class="form-control" placeholder="/Urun">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label fw-semibold">Resim</label>
+                            <input type="file" name="imageFile" class="form-control" accept="image/*">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-semibold">Sıra</label>
+                            <input name="OrderNo" type="number" class="form-control" value="1" min="1">
+                        </div>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input name="IsActive" type="checkbox" class="form-check-input" value="true" checked>
+                        <label class="form-check-label">Aktif</label>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-gold">Kaydet</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+@model ECommerceApp.Models.Product
+@{
+    ViewBag.Title = Model.Name;
+    var related = ViewBag.RelatedProducts as List<ECommerceApp.Models.Product>;
+}
+
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('/images/bg-01.jpg');">
+    <h2 class="ltext-105 cl0 txt-center">@Model.Name</h2>
+</section>
+
+<div class="bg0 p-t-75 p-b-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-7 p-b-30">
+                <div class="p-l-25 p-r-30 p-lr-0-lg">
+                    <div class="wrap-slick3 flex-sb-m flex-w">
+                        <div class="wrap-slick3-dots"></div>
+                        <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+                        <div class="slick3 gallery-lb">
+                            <div class="item-slick3" data-thumb="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/product-01.jpg" : Model.ImageUrl)">
+                                <div class="wrap-pic-w pos-relative">
+                                    <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/product-01.jpg" : Model.ImageUrl)" alt="@Model.Name">
+                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/product-01.jpg" : Model.ImageUrl)">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-5 p-b-30">
+                <div class="p-r-50 p-t-5 p-lr-0-lg">
+                    <h4 class="mtext-105 cl2 js-name-detail p-b-14">@Model.Name</h4>
+                    <span class="mtext-106 cl2">@Model.Price.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</span>
+                    <p class="stext-102 cl3 p-t-23">@Model.Category?.Name</p>
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        <p class="stext-102 cl6 p-t-23">@Model.Description</p>
+                    }
+                    <div class="p-t-33">
+                        <a asp-controller="Product" asp-action="Index" asp-route-categoryId="@Model.CategoryId" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                            Kategoriye Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (related != null && related.Any())
+        {
+            <div class="p-t-50">
+                <h3 class="ltext-103 cl5 p-b-30">İlgili Ürünler</h3>
+                <div class="wrap-slick2">
+                    <div class="slick2">
+                        @foreach (var rp in related)
+                        {
+                            <div class="item-slick2 p-l-15 p-r-15">
+                                <div class="block2">
+                                    <div class="block2-pic hov-img0">
+                                        <img src="@(string.IsNullOrEmpty(rp.ImageUrl) ? "/images/product-01.jpg" : rp.ImageUrl)" alt="@rp.Name">
+                                        <a asp-controller="Product" asp-action="Detail" asp-route-id="@rp.Id" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                            İncele
+                                        </a>
+                                    </div>
+                                    <div class="block2-txt flex-w flex-t p-t-14">
+                                        <div class="block2-txt-child1 flex-col-l">
+                                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@rp.Id" class="stext-104 cl4 hov-cl1 trans-04 p-b-6">@rp.Name</a>
+                                            <span class="stext-105 cl3">@rp.Price.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

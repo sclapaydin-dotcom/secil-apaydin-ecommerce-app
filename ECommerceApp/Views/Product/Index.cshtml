@@ -1,0 +1,74 @@
+@model List<ECommerceApp.Models.Product>
+@{
+    ViewBag.Title = "Ürünler";
+    var categories = ViewBag.Categories as List<ECommerceApp.Models.Category>;
+    int? selectedCategory = ViewBag.SelectedCategory;
+}
+
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('/images/bg-01.jpg');">
+    <h2 class="ltext-105 cl0 txt-center">Ürünler</h2>
+</section>
+
+<section class="bg0 p-t-75 p-b-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="p-b-40">
+                    <h4 class="mtext-112 cl2 p-b-33">Kategoriler</h4>
+                    <ul>
+                        <li class="p-b-6">
+                            <a asp-controller="Product" asp-action="Index" class="stext-114 cl6 hov-cl1 trans-04 @(selectedCategory == null ? "cl1" : "")">
+                                Tümü (@Model.Count)
+                            </a>
+                        </li>
+                        @if (categories != null)
+                        {
+                            foreach (var cat in categories)
+                            {
+                                <li class="p-b-6">
+                                    <a asp-controller="Product" asp-action="Index" asp-route-categoryId="@cat.Id" class="stext-114 cl6 hov-cl1 trans-04 @(selectedCategory == cat.Id ? "cl1" : "")">
+                                        @cat.Name
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                @if (!Model.Any())
+                {
+                    <div class="txt-center p-tb-40">
+                        <p class="stext-113 cl6">Bu kategoride ürün bulunamadı.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        @foreach (var product in Model)
+                        {
+                            <div class="col-sm-6 col-md-4 p-b-35">
+                                <div class="block2">
+                                    <div class="block2-pic hov-img0">
+                                        <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/product-01.jpg" : product.ImageUrl)" alt="@product.Name">
+                                        <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                            İncele
+                                        </a>
+                                    </div>
+                                    <div class="block2-txt flex-w flex-t p-t-14">
+                                        <div class="block2-txt-child1 flex-col-l">
+                                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id" class="stext-104 cl4 hov-cl1 trans-04 p-b-6">
+                                                @product.Name
+                                            </a>
+                                            <span class="stext-105 cl3">@product.Price.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

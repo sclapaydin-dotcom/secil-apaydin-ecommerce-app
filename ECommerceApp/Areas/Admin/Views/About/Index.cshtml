@@ -1,0 +1,67 @@
+@model ECommerceApp.Models.About
+@{
+    ViewBag.Title = "Hakkımızda Sayfası";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h6 class="m-0 fw-bold">Hakkımızda Sayfasını Düzenle</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="Index" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input asp-for="Id" type="hidden">
+            @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+            {
+                <input asp-for="ImageUrl" type="hidden">
+            }
+            @if (!string.IsNullOrEmpty(Model?.MissionImageUrl))
+            {
+                <input asp-for="MissionImageUrl" type="hidden">
+            }
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold mb-3 text-secondary">Hikayemiz Bölümü</h5>
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label fw-semibold"></label>
+                        <input asp-for="Title" class="form-control">
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Content" class="form-label fw-semibold"></label>
+                        <textarea asp-for="Content" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Content" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Resim (opsiyonel)</label>
+                        <input type="file" name="imageFile" class="form-control" accept="image/*">
+                        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+                        {
+                            <img src="@Model.ImageUrl" class="mt-2" style="height:60px;border-radius:6px;" alt="Mevcut">
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold mb-3 text-secondary">Misyon Bölümü</h5>
+                    <div class="mb-3">
+                        <label asp-for="MissionTitle" class="form-label fw-semibold"></label>
+                        <input asp-for="MissionTitle" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="MissionContent" class="form-label fw-semibold"></label>
+                        <textarea asp-for="MissionContent" class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Misyon Resmi (opsiyonel)</label>
+                        <input type="file" name="missionImageFile" class="form-control" accept="image/*">
+                        @if (!string.IsNullOrEmpty(Model?.MissionImageUrl))
+                        {
+                            <img src="@Model.MissionImageUrl" class="mt-2" style="height:60px;border-radius:6px;" alt="Mevcut">
+                        }
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-gold">Kaydet</button>
+        </form>
+    </div>
+</div>
